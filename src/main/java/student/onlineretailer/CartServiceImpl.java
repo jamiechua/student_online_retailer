@@ -1,6 +1,7 @@
 package student.onlineretailer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,18 @@ import java.util.Map;
 
 @Service
 public class CartServiceImpl implements CartService {
+
+    @Value("${contactEmail}")
+    private String email;
+
+    @Value("${onlineRetailer.salesTaxRate}")
+    private double salesTaxRate;
+
+    @Value("${onlineRetailer.deliveryCharge.normal}")
+    private double normal;
+
+    @Value("${onlineRetailer.deliveryCharge.threshold}")
+    private double threshold;
 
     @Autowired
     private Map<Integer, Item> catalog;
@@ -39,5 +52,15 @@ public class CartServiceImpl implements CartService {
             cost += price * quantity;
         }
         return cost;
+    }
+
+    public void printEmail(){
+        System.out.println("Company email: " + email);
+    }
+
+    public void printProperties(){
+        System.out.println("Sales tax rate: " + salesTaxRate);
+        System.out.println("Normal delivery charge: " + normal);
+        System.out.println("Threshold delivery charge: " + threshold);
     }
 }

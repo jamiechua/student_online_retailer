@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 
+import javax.annotation.Resources;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +32,16 @@ public class Application {
 		}
 
 		System.out.println("Total cost of cart: $"+cartservice.calculateCartCost());
-	}
+
+
+		CartServiceImpl cartserviceimpl = ctx.getBean(CartServiceImpl.class);
+		cartserviceimpl.printEmail();
+		cartserviceimpl.printProperties();
+
+
+		System.setProperty("spring.config.name", "application");
+		ResourcesBean resourcesbean = ctx.getBean(ResourcesBean.class);
+		System.out.println(resourcesbean);	}
 
 	@Bean
 	public Map<Integer, Item> catalog(){
